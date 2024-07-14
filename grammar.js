@@ -12,7 +12,8 @@ module.exports = grammar({
   externals: ($) => [$.command],
   rules: {
     tupfile: ($) => repeat($._definition),
-    _definition: ($) => choice(seq($.gitignore, "\n"), $.rule),
+    _definition: ($) =>
+      choice(seq($.gitignore, "\n"), $.rule, $.variable_statement),
     rule: ($) =>
       seq(
         token(": "),
@@ -67,5 +68,12 @@ module.exports = grammar({
         optional(choice($.percent_flag, $.array_percent_flag, / [^^]*/)),
         "^",
       ),
+    identifier: ($) => choice($.tup_identifier, $.reference, $.normal),
+    tup_identifier: ($) => prec(2, /TUP_[\w\d]*/),
+    reference: ($) => prec(1, /&[\w\d]+/),
+    normal: ($) => /[\w\d]+/,
+    operators: ($) => choice("=", "+=", ":="),
+    variable_statement: ($) =>
+      seq($.identifier, $.operators, /[^\n]+/, optional("\n")),
   },
 });

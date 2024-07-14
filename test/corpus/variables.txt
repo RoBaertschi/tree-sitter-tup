@@ -1,0 +1,33 @@
+============
+Variables definitons
+============
+
+TEST := adpfah32871'45$¨.¨.¨.
+TEST2 = adpfah32871'45$¨.¨.¨.
+HELLO += apdfhpa3290'456'5*%"¨245245¨üö¨2345¨.2¨4k,52,34.52.456¨
+TUP_TEST = hi
+&ref += dhpah
+---
+
+(tupfile
+    (variable_statement
+        (identifier
+            (normal))
+        (operators))
+    (variable_statement
+        (identifier
+            (normal))
+        (operators))
+    (variable_statement
+        (identifier
+            (normal))
+        (operators))
+    (variable_statement
+        (identifier
+            (tup_identifier))
+        (operators))
+    (variable_statement
+        (identifier
+            (reference))
+        (operators))
+        )

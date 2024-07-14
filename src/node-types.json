@@ -49,6 +49,29 @@
     "fields": {}
   },
   {
+    "type": "identifier",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "normal",
+          "named": true
+        },
+        {
+          "type": "reference",
+          "named": true
+        },
+        {
+          "type": "tup_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "input_statement",
     "named": true,
     "fields": {
@@ -73,6 +96,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "operators",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "percent_flag",
@@ -103,6 +131,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "reference",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "rule",
@@ -202,6 +235,11 @@
     }
   },
   {
+    "type": "tup_identifier",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "tupfile",
     "named": true,
     "fields": {},
@@ -216,6 +254,29 @@
         {
           "type": "rule",
           "named": true
+        },
+        {
+          "type": "variable_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "variable_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "operators",
+          "named": true
         }
       ]
     }
@@ -229,11 +290,23 @@
     "named": false
   },
   {
+    "type": "+=",
+    "named": false
+  },
+  {
     "type": ": ",
     "named": false
   },
   {
+    "type": ":=",
+    "named": false
+  },
+  {
     "type": "<",
+    "named": false
+  },
+  {
+    "type": "=",
     "named": false
   },
   {
@@ -266,6 +339,10 @@
   },
   {
     "type": "gitignore",
+    "named": true
+  },
+  {
+    "type": "normal",
     "named": true
   },
   {
