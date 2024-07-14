@@ -1,0 +1,192 @@
+===========
+Simple Rule
+===========
+
+# "Hello"
+: |> echo "hello" | cat - > hello |> hello
+
+---
+(tupfile
+    (comment)
+    (rule
+        (arrow)
+        (command)
+        (arrow)
+        (files
+            (filename))))
+
+============
+Rule with input
+============
+
+: test.txt |> cat test.txt > hello |> hello
+
+---
+(tupfile
+    (rule
+        (input_statement
+            (files
+                (filename)))
+        (arrow)
+        (command)
+        (arrow)
+        (files
+            (filename))))
+
+
+============
+Rule without output and an macro
+============
+
+: test.c |> !tup_preserve |>
+
+---
+(tupfile
+    (rule
+        (input_statement
+            (files
+                (filename)))
+        (arrow)
+        (command)
+        (arrow)))
+
+
+============
+Foreach rule
+============
+
+: foreach *.c |> echo %f > %o |> %B.o
+
+---
+(tupfile
+    (rule
+        (input_statement
+            (foreach)
+            (files
+                (filename)))
+        (arrow)
+        (command)
+        (array_percent_flag)
+        (command)
+        (array_percent_flag)
+        (arrow)
+        (files
+            (filename
+                (array_percent_flag))
+            (filename))))
+
+
+============
+Multiple Rules
+============
+: test.c |> test |> test
+: test2.c |> test2 |> test2
+
+---
+
+(tupfile
+    (rule
+        (input_statement
+            (files
+                (filename)))
+        (arrow)
+        (command)
+        (arrow)
+        (files
+            (filename)))
+    (rule
+        (input_statement
+            (files
+                (filename)))
+        (arrow)
+        (command)
+        (arrow)
+        (files
+            (filename))))
+
+
+============
+Groups and Bins
+============
+: test.c |> test |> test <test> {test}
+
+---
+
+(tupfile
+    (rule
+        (input_statement
+            (files
+                (filename)))
+        (arrow)
+        (command)
+        (arrow)
+        (files
+            (filename))
+        (group)
+        (bin)))
+
+
+============
+.gitignore
+============
+
+.gitignore
+
+---
+
+(tupfile (gitignore))
+
+
+============
+Test custom scanner
+============
+
+: |> echo %<test>%f%f > %o |>
+
+---
+
+(tupfile
+    (rule
+        (arrow)
+        (command)
+        (percent_flag (group))
+        (array_percent_flag)
+        (array_percent_flag)
+        (command)
+        (array_percent_flag)
+        (arrow)))
+
+
+
+============
+Text flags
+============
+
+: |> ^b dhapdh^ echo "hi"  > %o |>
+
+---
+
+(tupfile
+    (rule
+        (arrow)
+        (text
+            (flag))
+        (command)
+        (array_percent_flag)
+        (arrow)))
+
+============
+Text without flags
+============
+
+: |> ^ dhapdh^ echo "hi"  > %o |>
+
+---
+
+(tupfile
+    (rule
+        (arrow)
+        (text)
+        (command)
+        (array_percent_flag)
+        (arrow)))
