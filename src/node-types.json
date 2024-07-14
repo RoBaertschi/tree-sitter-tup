@@ -207,6 +207,10 @@
         {
           "type": "text",
           "named": true
+        },
+        {
+          "type": "variable_reference",
+          "named": true
         }
       ]
     }
@@ -263,6 +267,33 @@
     }
   },
   {
+    "type": "variable_reference",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "array_percent_flag",
+          "named": true
+        },
+        {
+          "type": "normal",
+          "named": true
+        },
+        {
+          "type": "percent_flag",
+          "named": true
+        },
+        {
+          "type": "tup_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "variable_statement",
     "named": true,
     "fields": {},
@@ -286,7 +317,19 @@
     "named": false
   },
   {
+    "type": "$(",
+    "named": false
+  },
+  {
     "type": "%",
+    "named": false
+  },
+  {
+    "type": "&(",
+    "named": false
+  },
+  {
+    "type": ")",
     "named": false
   },
   {
@@ -311,6 +354,10 @@
   },
   {
     "type": ">",
+    "named": false
+  },
+  {
+    "type": "@(",
     "named": false
   },
   {

@@ -31,3 +31,47 @@ TUP_TEST = hi
             (reference))
         (operators))
         )
+
+============
+Variable usage
+============
+: |> $(hi) |>
+: |> @(hi) |>
+: |> &(hi) |>
+
+---
+(tupfile
+    (rule
+        (arrow)
+        (command)
+        (variable_reference
+            (normal))
+        (arrow))
+    (rule
+        (arrow)
+        (command)
+        (variable_reference
+            (normal))
+        (arrow))
+    (rule
+        (arrow)
+        (command)
+        (variable_reference
+            (normal))
+        (arrow)))
+
+============
+%-Flags in var names
+============
+
+: |> &(hi_%o) |>
+
+---
+(tupfile
+    (rule
+        (arrow)
+        (command)
+        (variable_reference
+            (normal)
+            (array_percent_flag))
+        (arrow)))

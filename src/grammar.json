@@ -104,6 +104,10 @@
               {
                 "type": "SYMBOL",
                 "name": "percent_flag"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "variable_reference"
               }
             ]
           }
@@ -526,6 +530,65 @@
               "type": "BLANK"
             }
           ]
+        }
+      ]
+    },
+    "variable_reference": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "TOKEN",
+              "content": {
+                "type": "STRING",
+                "value": "$("
+              }
+            },
+            {
+              "type": "TOKEN",
+              "content": {
+                "type": "STRING",
+                "value": "@("
+              }
+            },
+            {
+              "type": "TOKEN",
+              "content": {
+                "type": "STRING",
+                "value": "&("
+              }
+            }
+          ]
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "tup_identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "normal"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "percent_flag"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "array_percent_flag"
+              }
+            ]
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ")"
         }
       ]
     }

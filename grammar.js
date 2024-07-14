@@ -21,7 +21,14 @@ module.exports = grammar({
         optional(field("order_only_inputs", $.piped_files)),
         $.arrow,
         optional($.text),
-        repeat1(choice($.command, $.array_percent_flag, $.percent_flag)),
+        repeat1(
+          choice(
+            $.command,
+            $.array_percent_flag,
+            $.percent_flag,
+            $.variable_reference,
+          ),
+        ),
         $.arrow,
         optional(field("outputs", $.files)),
         optional(field("extra_outputs", $.piped_files)),
@@ -75,5 +82,18 @@ module.exports = grammar({
     operators: ($) => choice("=", "+=", ":="),
     variable_statement: ($) =>
       seq($.identifier, $.operators, /[^\n]+/, optional("\n")),
+    variable_reference: ($) =>
+      seq(
+        choice(token("$("), token("@("), token("&(")),
+        repeat1(
+          choice(
+            $.tup_identifier,
+            $.normal,
+            $.percent_flag,
+            $.array_percent_flag,
+          ),
+        ),
+        ")",
+      ),
   },
 });

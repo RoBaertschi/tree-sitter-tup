@@ -62,10 +62,18 @@ bool tree_sitter_tup_external_scanner_scan(
     //     // }
     // }
 
-    if (valid_symbols[COMMAND] && lexer->lookahead != '%' && lexer->lookahead != '^') {
+    if (valid_symbols[COMMAND]
+            && lexer->lookahead != '%'
+            && lexer->lookahead != '^'
+            && lexer->lookahead != '&'
+            && lexer->lookahead != '$'
+            && lexer->lookahead != '@'
+    ) {
         lexer->advance(lexer, false);
 
-        while (lexer->lookahead != '\n' && lexer->lookahead != '^' && !lexer->eof(lexer)) {
+        while (lexer->lookahead != '\n'
+            && lexer->lookahead != '^'
+            && !lexer->eof(lexer)) {
             if (lexer->lookahead == '|') {
                 // dap|>
                 //   ^
@@ -79,7 +87,11 @@ bool tree_sitter_tup_external_scanner_scan(
                 } else {
                     lexer->mark_end(lexer);
                 }
-            } else if (lexer->lookahead == '%') {
+            } else if (lexer->lookahead == '%'
+                || lexer->lookahead == '&'
+                || lexer->lookahead == '$'
+                || lexer->lookahead == '@'
+            ) {
                 lexer->result_symbol = COMMAND;
                 return true;
             }
