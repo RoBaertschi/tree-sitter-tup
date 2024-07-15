@@ -3,7 +3,7 @@
 #include "tree_sitter/array.h"
 
 enum TokenType {
-    COMMAND,
+    STRING,
     // ARROW,
     // FOREACH,
 };
@@ -62,7 +62,7 @@ bool tree_sitter_tup_external_scanner_scan(
     //     // }
     // }
 
-    if (valid_symbols[COMMAND]
+    if (valid_symbols[STRING]
             && lexer->lookahead != '%'
             && lexer->lookahead != '^'
             && lexer->lookahead != '&'
@@ -77,7 +77,7 @@ bool tree_sitter_tup_external_scanner_scan(
             if (lexer->lookahead == '|') {
                 // dap|>
                 //   ^
-                lexer->result_symbol = COMMAND;
+                lexer->result_symbol = STRING;
                 lexer->mark_end(lexer);
                 lexer->advance(lexer, false);
                 // dap|>
@@ -92,7 +92,7 @@ bool tree_sitter_tup_external_scanner_scan(
                 || lexer->lookahead == '$'
                 || lexer->lookahead == '@'
             ) {
-                lexer->result_symbol = COMMAND;
+                lexer->result_symbol = STRING;
                 return true;
             }
 

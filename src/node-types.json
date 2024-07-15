@@ -72,6 +72,21 @@
     }
   },
   {
+    "type": "ifeq",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "input_statement",
     "named": true,
     "fields": {
@@ -216,6 +231,21 @@
     }
   },
   {
+    "type": "string",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "variable_reference",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "text",
     "named": true,
     "fields": {},
@@ -253,6 +283,10 @@
       "types": [
         {
           "type": "gitignore",
+          "named": true
+        },
+        {
+          "type": "ifeq",
           "named": true
         },
         {
@@ -329,11 +363,19 @@
     "named": false
   },
   {
+    "type": "(",
+    "named": false
+  },
+  {
     "type": ")",
     "named": false
   },
   {
     "type": "+=",
+    "named": false
+  },
+  {
+    "type": ",",
     "named": false
   },
   {
@@ -387,6 +429,10 @@
   {
     "type": "gitignore",
     "named": true
+  },
+  {
+    "type": "ifeq",
+    "named": false
   },
   {
     "type": "normal",

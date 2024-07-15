@@ -12,8 +12,7 @@ module.exports = grammar({
   externals: ($) => [$.command],
   rules: {
     tupfile: ($) => repeat($._definition),
-    _definition: ($) =>
-      choice(seq($.gitignore, "\n"), $.rule, $.variable_statement),
+    _definition: ($) => choice($.rule, $.variable_statement, $._keyword),
     rule: ($) =>
       seq(
         token(": "),
@@ -95,5 +94,10 @@ module.exports = grammar({
         ),
         ")",
       ),
+
+    string: ($) => repeat1(choice(/.*/, $.variable_reference)),
+
+    ifeq: ($) => seq("ifeq", "(", $.string, ",", $.string, ")", "\n"),
+    _keyword: ($) => seq(choice($.gitignore, $.ifeq), "\n"),
   },
 });

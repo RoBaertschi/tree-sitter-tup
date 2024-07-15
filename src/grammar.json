@@ -12,25 +12,16 @@
       "type": "CHOICE",
       "members": [
         {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "gitignore"
-            },
-            {
-              "type": "STRING",
-              "value": "\n"
-            }
-          ]
-        },
-        {
           "type": "SYMBOL",
           "name": "rule"
         },
         {
           "type": "SYMBOL",
           "name": "variable_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_keyword"
         }
       ]
     },
@@ -589,6 +580,77 @@
         {
           "type": "STRING",
           "value": ")"
+        }
+      ]
+    },
+    "string": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "PATTERN",
+            "value": ".*"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "variable_reference"
+          }
+        ]
+      }
+    },
+    "ifeq": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "ifeq"
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "string"
+        },
+        {
+          "type": "STRING",
+          "value": ","
+        },
+        {
+          "type": "SYMBOL",
+          "name": "string"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        },
+        {
+          "type": "STRING",
+          "value": "\n"
+        }
+      ]
+    },
+    "_keyword": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "gitignore"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "ifeq"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "\n"
         }
       ]
     }
