@@ -18,6 +18,8 @@
 
 
 (string) @string
+(error (string) @emphasis.strong)
+(variable_statement (identifier (reference)) (operators) (string) @filename)
 (text) @string.special
 (flag) @tag
 [
@@ -37,10 +39,14 @@
  "("
  ")"
  "|"
+ "<"
+ ">"
+ "{"
+ "}"
 ] @punctuation.bracket
 
 (comment) @comment
-(filename) @filename
+(filename) @string.special
 (group) @group
 (bin) @bin
 
