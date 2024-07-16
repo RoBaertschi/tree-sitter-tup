@@ -63,3 +63,8 @@ hello = hello
 hi = hi
 test-$(hi) = test
 test2-&(test) = test2
+
+ifeq (d,@(TUP_ARCH))
+endif
+
+: |> echo "hello" | cat - > test4343 |> test4343

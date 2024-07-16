@@ -5,6 +5,11 @@
     "fields": {}
   },
   {
+    "type": "config_var",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "else",
     "named": true,
     "fields": {},
@@ -176,6 +181,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "config_var",
+          "named": true
+        },
         {
           "type": "else",
           "named": true
@@ -373,7 +382,7 @@
         "required": true,
         "types": [
           {
-            "type": "files",
+            "type": "inputfiles",
             "named": true
           }
         ]
@@ -385,6 +394,29 @@
       "types": [
         {
           "type": "foreach",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "inputfiles",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "bin",
+          "named": true
+        },
+        {
+          "type": "filename",
+          "named": true
+        },
+        {
+          "type": "group",
           "named": true
         }
       ]

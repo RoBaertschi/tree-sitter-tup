@@ -226,7 +226,7 @@
               "name": "inputs",
               "content": {
                 "type": "SYMBOL",
-                "name": "files"
+                "name": "inputfiles"
               }
             }
           ]
@@ -236,7 +236,7 @@
           "name": "inputs",
           "content": {
             "type": "SYMBOL",
-            "name": "files"
+            "name": "inputfiles"
           }
         }
       ]
@@ -253,6 +253,26 @@
       "content": {
         "type": "SYMBOL",
         "name": "filename"
+      }
+    },
+    "inputfiles": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "filename"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "group"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "bin"
+          }
+        ]
       }
     },
     "filename": {
@@ -839,6 +859,10 @@
         }
       ]
     },
+    "config_var": {
+      "type": "PATTERN",
+      "value": "[\\w\\d\\-_\\.]+"
+    },
     "if": {
       "type": "SEQ",
       "members": [
@@ -856,8 +880,8 @@
           ]
         },
         {
-          "type": "PATTERN",
-          "value": "[\\w\\d\\-_\\.]+"
+          "type": "SYMBOL",
+          "name": "config_var"
         },
         {
           "type": "STRING",

@@ -44,11 +44,12 @@ module.exports = grammar({
     gitignore: ($) => token(prec(1, ".gitignore")),
     input_statement: ($) =>
       choice(
-        seq($.foreach, field("inputs", $.files)),
-        field("inputs", $.files),
+        seq($.foreach, field("inputs", $.inputfiles)),
+        field("inputs", $.inputfiles),
       ),
     arrow: ($) => token("|>"),
     files: ($) => repeat1($.filename),
+    inputfiles: $ => repeat1(choice($.filename, $.group, $.bin)),
     filename: ($) =>
       choice($.percent_flag, $.array_percent_flag, prec.left(/[^<>{}%|\\\s]+/)),
     // For order-only inputs and extra outputs
@@ -133,10 +134,12 @@ module.exports = grammar({
         $.endif,
       ),
 
+    config_var: () => new RegExp(var_regex),
+
     if: ($) =>
       seq(
         choice($.ifdef, $.ifndef),
-        new RegExp(var_regex),
+        $.config_var,
         "\n",
         repeat($._definition),
         optional($.else),

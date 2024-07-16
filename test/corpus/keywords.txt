@@ -92,9 +92,11 @@ endif
 (tupfile
     (if
         (ifdef)
+        (config_var)
         (endif))
     (if
         (ifndef)
+        (config_var)
         (endif)))
 
 
@@ -118,6 +120,7 @@ endif
 (tupfile
       (if
         (ifdef)
+        (config_var)
         (variable_statement
           (identifier
             (normal))

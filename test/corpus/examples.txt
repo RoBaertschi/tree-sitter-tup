@@ -10,7 +10,7 @@ First Example
   (rule
     (input_statement
       (foreach)
-      (files
+      (inputfiles
         (filename)))
     (arrow)
     (command)
@@ -24,7 +24,7 @@ First Example
       (filename)))
   (rule
     (input_statement
-      (files
+      (inputfiles
         (filename)))
     (arrow)
     (command)
@@ -62,7 +62,7 @@ Dependencies Example
       (filename)))
   (rule
     (input_statement
-      (files
+      (inputfiles
         (filename)
         (filename)))
     (arrow)
@@ -93,7 +93,7 @@ Generated Header Example
   (rule
     (input_statement
       (foreach)
-      (files
+      (inputfiles
         (filename)))
     (piped_files
       (files
@@ -110,7 +110,7 @@ Generated Header Example
       (filename)))
   (rule
     (input_statement
-      (files
+      (inputfiles
         (filename)))
     (arrow)
     (command)
@@ -166,7 +166,7 @@ CFLAGS_foo.c = -DFOO
   (rule
     (input_statement
       (foreach)
-      (files
+      (inputfiles
         (filename)))
     (piped_files
       (files
@@ -190,7 +190,7 @@ CFLAGS_foo.c = -DFOO
       (filename)))
   (rule
     (input_statement
-      (files
+      (inputfiles
         (filename)))
     (arrow)
     (command)

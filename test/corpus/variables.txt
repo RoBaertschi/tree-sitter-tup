@@ -64,7 +64,7 @@ Variable usage
 %-Flags in var names
 ============
 
-: |> &(hi_%o) |>
+: |> hello &(hi_%o) world |>
 
 ---
 (tupfile
@@ -74,6 +74,7 @@ Variable usage
         (variable_reference
             (normal)
             (array_percent_flag))
+        (command)
         (arrow)))
 
 ============

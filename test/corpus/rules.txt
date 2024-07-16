@@ -25,7 +25,7 @@ Rule with input
 (tupfile
     (rule
         (input_statement
-            (files
+            (inputfiles
                 (filename)))
         (arrow)
         (command)
@@ -44,7 +44,7 @@ Rule without output and an macro
 (tupfile
     (rule
         (input_statement
-            (files
+            (inputfiles
                 (filename)))
         (arrow)
         (command)
@@ -62,7 +62,7 @@ Foreach rule
     (rule
         (input_statement
             (foreach)
-            (files
+            (inputfiles
                 (filename)))
         (arrow)
         (command)
@@ -87,7 +87,7 @@ Multiple Rules
 (tupfile
     (rule
         (input_statement
-            (files
+            (inputfiles
                 (filename)))
         (arrow)
         (command)
@@ -96,7 +96,7 @@ Multiple Rules
             (filename)))
     (rule
         (input_statement
-            (files
+            (inputfiles
                 (filename)))
         (arrow)
         (command)
@@ -115,7 +115,7 @@ Groups and Bins
 (tupfile
     (rule
         (input_statement
-            (files
+            (inputfiles
                 (filename)))
         (arrow)
         (command)
@@ -196,6 +196,21 @@ Text without flags
 ============
 
 : |> echo "hi" !  > %o |>
+
+---
+
+(tupfile
+    (rule
+        (arrow)
+        (command)
+        (array_percent_flag)
+        (arrow)))
+
+============
+&& in rule
+============
+
+: |> echo "hi" && echo "hi!"  > %o |>
 
 ---
 

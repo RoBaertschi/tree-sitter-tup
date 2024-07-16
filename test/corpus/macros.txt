@@ -10,7 +10,7 @@ Macro invocation
   (rule
     (input_statement
       (foreach)
-      (files
+      (inputfiles
         (filename)))
     (arrow)
     (command)
