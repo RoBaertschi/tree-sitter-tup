@@ -1,0 +1,1 @@
+: foreach *.c |> !cc |> %B.o

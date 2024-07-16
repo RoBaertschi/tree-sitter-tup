@@ -190,3 +190,18 @@ Text without flags
         (command)
         (array_percent_flag)
         (arrow)))
+
+============
+! in command should not error
+============
+
+: |> echo "hi" !  > %o |>
+
+---
+
+(tupfile
+    (rule
+        (arrow)
+        (command)
+        (array_percent_flag)
+        (arrow)))

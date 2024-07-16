@@ -1,0 +1,202 @@
+============
+First Example
+============
+: foreach *.c |> gcc -Wall -c %f -o %o |> %B.o
+: *.o |> gcc %f -o %o |> hello
+
+---
+
+(tupfile
+  (rule
+    (input_statement
+      (foreach)
+      (files
+        (filename)))
+    (arrow)
+    (command)
+    (array_percent_flag)
+    (command)
+    (array_percent_flag)
+    (arrow)
+    (files
+      (filename
+        (array_percent_flag))
+      (filename)))
+  (rule
+    (input_statement
+      (files
+        (filename)))
+    (arrow)
+    (command)
+    (array_percent_flag)
+    (command)
+    (array_percent_flag)
+    (arrow)
+    (files
+      (filename))))
+
+============
+Dependencies Example
+============
+
+: |> echo "generated text" > %o |> generated.txt
+: |> echo "unused text" > %o |> unused.txt
+: generated.txt unused.txt |> ./test.sh > %o |> output.txt
+
+---
+
+(tupfile
+  (rule
+    (arrow)
+    (command)
+    (array_percent_flag)
+    (arrow)
+    (files
+      (filename)))
+  (rule
+    (arrow)
+    (command)
+    (array_percent_flag)
+    (arrow)
+    (files
+      (filename)))
+  (rule
+    (input_statement
+      (files
+        (filename)
+        (filename)))
+    (arrow)
+    (command)
+    (array_percent_flag)
+    (arrow)
+    (files
+      (filename))))
+
+============
+Generated Header Example
+============
+
+: |> sh gen_triangle.sh > %o |> triangle.h
+: foreach *.c | triangle.h |> gcc -Wall -c %f -o %o |> %B.o
+: *.o |> gcc %f -o %o |> hello
+
+---
+
+(tupfile
+  (rule
+    (arrow)
+    (command)
+    (array_percent_flag)
+    (arrow)
+    (files
+      (filename)))
+  (rule
+    (input_statement
+      (foreach)
+      (files
+        (filename)))
+    (piped_files
+      (files
+        (filename)))
+    (arrow)
+    (command)
+    (array_percent_flag)
+    (command)
+    (array_percent_flag)
+    (arrow)
+    (files
+      (filename
+        (array_percent_flag))
+      (filename)))
+  (rule
+    (input_statement
+      (files
+        (filename)))
+    (arrow)
+    (command)
+    (array_percent_flag)
+    (command)
+    (array_percent_flag)
+    (arrow)
+    (files
+      (filename))))
+
+============
+Example in man page
+============
+
+WARNINGS += -W
+WARNINGS += -Wall
+CFLAGS = $(WARNINGS) -O2
+CFLAGS_foo.c = -DFOO
+: |> echo '#define BAR 3' > %o |> foo.h
+: foreach *.c | foo.h |> gcc -c %f -o %o $(CFLAGS) $(CFLAGS_%f) |> %B.o
+: *.o |> gcc %f -o %o |> program
+
+---
+
+(tupfile
+  (variable_statement
+    (identifier
+      (normal))
+    (operators)
+    (string))
+  (variable_statement
+    (identifier
+      (normal))
+    (operators)
+    (string))
+  (variable_statement
+    (identifier
+      (normal))
+    (operators)
+    (string))
+  (variable_statement
+    (identifier
+      (normal))
+    (operators)
+    (string))
+  (rule
+    (arrow)
+    (command)
+    (array_percent_flag)
+    (arrow)
+    (files
+      (filename)))
+  (rule
+    (input_statement
+      (foreach)
+      (files
+        (filename)))
+    (piped_files
+      (files
+        (filename)))
+    (arrow)
+    (command)
+    (array_percent_flag)
+    (command)
+    (array_percent_flag)
+    (command)
+    (variable_reference
+      (normal))
+    (command)
+    (variable_reference
+      (normal)
+      (array_percent_flag))
+    (arrow)
+    (files
+      (filename
+        (array_percent_flag))
+      (filename)))
+  (rule
+    (input_statement
+      (files
+        (filename)))
+    (arrow)
+    (command)
+    (array_percent_flag)
+    (command)
+    (array_percent_flag)
+    (arrow)
+    (files
+      (filename))))

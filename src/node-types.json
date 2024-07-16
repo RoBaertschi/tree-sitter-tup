@@ -5,6 +5,99 @@
     "fields": {}
   },
   {
+    "type": "else",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "error",
+          "named": true
+        },
+        {
+          "type": "export",
+          "named": true
+        },
+        {
+          "type": "gitignore",
+          "named": true
+        },
+        {
+          "type": "if",
+          "named": true
+        },
+        {
+          "type": "if_compare",
+          "named": true
+        },
+        {
+          "type": "import",
+          "named": true
+        },
+        {
+          "type": "include",
+          "named": true
+        },
+        {
+          "type": "include_rules",
+          "named": true
+        },
+        {
+          "type": "macro_decleration",
+          "named": true
+        },
+        {
+          "type": "preload",
+          "named": true
+        },
+        {
+          "type": "rule",
+          "named": true
+        },
+        {
+          "type": "run",
+          "named": true
+        },
+        {
+          "type": "variable_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "error",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "export",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "normal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "filename",
     "named": true,
     "fields": {},
@@ -53,7 +146,7 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
@@ -67,12 +160,16 @@
         {
           "type": "tup_identifier",
           "named": true
+        },
+        {
+          "type": "variable_reference",
+          "named": true
         }
       ]
     }
   },
   {
-    "type": "ifeq",
+    "type": "if",
     "named": true,
     "fields": {},
     "children": {
@@ -80,7 +177,188 @@
       "required": true,
       "types": [
         {
+          "type": "else",
+          "named": true
+        },
+        {
+          "type": "endif",
+          "named": true
+        },
+        {
+          "type": "error",
+          "named": true
+        },
+        {
+          "type": "export",
+          "named": true
+        },
+        {
+          "type": "gitignore",
+          "named": true
+        },
+        {
+          "type": "if",
+          "named": true
+        },
+        {
+          "type": "if_compare",
+          "named": true
+        },
+        {
+          "type": "ifdef",
+          "named": true
+        },
+        {
+          "type": "ifndef",
+          "named": true
+        },
+        {
+          "type": "import",
+          "named": true
+        },
+        {
+          "type": "include",
+          "named": true
+        },
+        {
+          "type": "include_rules",
+          "named": true
+        },
+        {
+          "type": "macro_decleration",
+          "named": true
+        },
+        {
+          "type": "preload",
+          "named": true
+        },
+        {
+          "type": "rule",
+          "named": true
+        },
+        {
+          "type": "run",
+          "named": true
+        },
+        {
+          "type": "variable_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "if_compare",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "else",
+          "named": true
+        },
+        {
+          "type": "endif",
+          "named": true
+        },
+        {
+          "type": "error",
+          "named": true
+        },
+        {
+          "type": "export",
+          "named": true
+        },
+        {
+          "type": "gitignore",
+          "named": true
+        },
+        {
+          "type": "if",
+          "named": true
+        },
+        {
+          "type": "if_compare",
+          "named": true
+        },
+        {
+          "type": "ifeq",
+          "named": true
+        },
+        {
+          "type": "ifneq",
+          "named": true
+        },
+        {
+          "type": "import",
+          "named": true
+        },
+        {
+          "type": "include",
+          "named": true
+        },
+        {
+          "type": "include_rules",
+          "named": true
+        },
+        {
+          "type": "macro_decleration",
+          "named": true
+        },
+        {
+          "type": "preload",
+          "named": true
+        },
+        {
+          "type": "rule",
+          "named": true
+        },
+        {
+          "type": "run",
+          "named": true
+        },
+        {
           "type": "string",
+          "named": true
+        },
+        {
+          "type": "variable_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "import",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "normal",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "include",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "filename",
           "named": true
         }
       ]
@@ -113,6 +391,71 @@
     }
   },
   {
+    "type": "macro_decleration",
+    "named": true,
+    "fields": {
+      "order_only_inputs": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "piped_files",
+            "named": true
+          }
+        ]
+      },
+      "outputs": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "files",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "array_percent_flag",
+          "named": true
+        },
+        {
+          "type": "arrow",
+          "named": true
+        },
+        {
+          "type": "command",
+          "named": true
+        },
+        {
+          "type": "input_statement",
+          "named": true
+        },
+        {
+          "type": "percent_flag",
+          "named": true
+        },
+        {
+          "type": "text",
+          "named": true
+        },
+        {
+          "type": "variable_reference",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "normal",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "operators",
     "named": true,
     "fields": {}
@@ -142,6 +485,21 @@
       "types": [
         {
           "type": "files",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "preload",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "filename",
           "named": true
         }
       ]
@@ -231,6 +589,21 @@
     }
   },
   {
+    "type": "run",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "string",
     "named": true,
     "fields": {},
@@ -282,15 +655,51 @@
       "required": false,
       "types": [
         {
+          "type": "error",
+          "named": true
+        },
+        {
+          "type": "export",
+          "named": true
+        },
+        {
           "type": "gitignore",
           "named": true
         },
         {
-          "type": "ifeq",
+          "type": "if",
+          "named": true
+        },
+        {
+          "type": "if_compare",
+          "named": true
+        },
+        {
+          "type": "import",
+          "named": true
+        },
+        {
+          "type": "include",
+          "named": true
+        },
+        {
+          "type": "include_rules",
+          "named": true
+        },
+        {
+          "type": "macro_decleration",
+          "named": true
+        },
+        {
+          "type": "preload",
           "named": true
         },
         {
           "type": "rule",
+          "named": true
+        },
+        {
+          "type": "run",
           "named": true
         },
         {
@@ -342,6 +751,10 @@
         {
           "type": "operators",
           "named": true
+        },
+        {
+          "type": "string",
+          "named": true
         }
       ]
     }
@@ -351,7 +764,15 @@
     "named": false
   },
   {
+    "type": "!",
+    "named": false
+  },
+  {
     "type": "$(",
+    "named": false
+  },
+  {
+    "type": "${",
     "named": false
   },
   {
@@ -360,6 +781,10 @@
   },
   {
     "type": "&(",
+    "named": false
+  },
+  {
+    "type": "&{",
     "named": false
   },
   {
@@ -403,6 +828,10 @@
     "named": false
   },
   {
+    "type": "@{",
+    "named": false
+  },
+  {
     "type": "^",
     "named": false
   },
@@ -423,6 +852,22 @@
     "named": true
   },
   {
+    "type": "else",
+    "named": false
+  },
+  {
+    "type": "endif",
+    "named": true
+  },
+  {
+    "type": "error",
+    "named": false
+  },
+  {
+    "type": "export",
+    "named": false
+  },
+  {
     "type": "foreach",
     "named": true
   },
@@ -431,12 +876,40 @@
     "named": true
   },
   {
+    "type": "ifdef",
+    "named": true
+  },
+  {
     "type": "ifeq",
+    "named": true
+  },
+  {
+    "type": "ifndef",
+    "named": true
+  },
+  {
+    "type": "ifneq",
+    "named": true
+  },
+  {
+    "type": "import",
     "named": false
   },
   {
-    "type": "normal",
+    "type": "include",
+    "named": false
+  },
+  {
+    "type": "include_rules",
     "named": true
+  },
+  {
+    "type": "preload",
+    "named": false
+  },
+  {
+    "type": "run",
+    "named": false
   },
   {
     "type": "{",

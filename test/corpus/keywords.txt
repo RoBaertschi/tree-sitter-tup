@@ -3,5 +3,244 @@ ifeq
 ============
 
 ifeq (d,d)
+endif
+ifeq ($(HI),hi)
+endif
+ifeq (@(HI),hi)
+endif
+ifeq (&(HI),hi)
+endif
 
 ---
+
+(tupfile
+    (if_compare (ifeq)
+        (string)
+        (string)
+        (endif))
+    (if_compare (ifeq)
+        (string
+            (variable_reference
+                (normal)))
+            (string)
+            (endif))
+    (if_compare (ifeq)
+        (string
+            (variable_reference
+                (normal)))
+            (string)
+            (endif))
+    (if_compare (ifeq)
+        (string
+            (variable_reference
+                (normal)))
+            (string)
+            (endif)))
+
+============
+ifneq
+============
+
+ifneq (d,d)
+endif
+ifneq ($(HI),hi dahd dps)
+endif
+ifneq (@(HI),hi)
+endif
+ifneq (ddd&(HI)ddd,hi)
+endif
+
+---
+
+(tupfile
+    (if_compare (ifneq)
+        (string)
+        (string)
+        (endif))
+    (if_compare (ifneq)
+        (string
+            (variable_reference
+                (normal)))
+            (string)
+            (endif))
+    (if_compare (ifneq)
+        (string
+            (variable_reference
+                (normal)))
+            (string)
+            (endif))
+    (if_compare (ifneq)
+        (string
+            (variable_reference
+                (normal)))
+            (string)
+            (endif)))
+
+
+
+============
+Ifdef and ifndef
+============
+
+ifdef HI
+endif
+ifndef HI
+endif
+
+---
+
+(tupfile
+    (if
+        (ifdef)
+        (endif))
+    (if
+        (ifndef)
+        (endif)))
+
+
+
+============
+If, else and endif
+============
+ifdef HELLO
+TEST = Hello
+: |> echo "Hello" > test |> test
+else
+TEST = No Hello
+: |> echo "No Hello" > test |> test
+endif
+
+ifeq ($(TEST),@(HELLO))
+&file = test
+endif
+---
+
+(tupfile
+      (if
+        (ifdef)
+        (variable_statement
+          (identifier
+            (normal))
+          (operators)
+          (string))
+        (rule
+          (arrow)
+          (command)
+          (arrow)
+          (files
+            (filename)))
+        (else
+          (variable_statement
+            (identifier
+              (normal))
+            (operators)
+            (string))
+          (rule
+            (arrow)
+            (command)
+            (arrow)
+            (files
+              (filename))))
+        (endif))
+      (if_compare
+        (ifeq)
+        (string
+          (variable_reference
+            (normal)))
+        (string
+          (variable_reference
+            (normal)))
+        (variable_statement
+          (identifier
+            (reference))
+          (operators)
+          (string))
+        (endif)))
+
+
+============
+error
+============
+
+error Hi, this is an error
+error Second error
+
+---
+
+(tupfile
+    (error
+        (string))
+    (error
+        (string)))
+
+
+============
+Include
+============
+
+include ./hi.tup
+
+---
+
+(tupfile
+    (include
+        (filename)))
+
+============
+Include Rules
+============
+
+include_rules
+
+---
+
+(tupfile
+    (include_rules))
+
+============
+Run
+============
+run ./test.sh hello world, this string goes until the end
+
+---
+(tupfile
+    (run
+        (string)))
+
+
+============
+Preload
+============
+
+preload ./hi
+
+---
+
+(tupfile
+    (preload
+        (filename)))
+
+============
+Export
+============
+
+export TEST_HELLO_WORLD
+
+---
+
+(tupfile
+    (export
+        (normal)))
+
+============
+Import
+============
+
+import TEST_HELLO_WORLD=test
+
+---
+
+(tupfile
+    (import
+        (normal)
+        (string)))

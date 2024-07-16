@@ -52,5 +52,14 @@ error impossible
 endif
 ifndef test
 endif
+import TEST = hi
 
-: |o|> ^ hoa^ echo "hello u" > hellou|>|hellou <hellou$()@()^`!!""¨£}{´[][{]|#¼½|¢¬]¢¢]}?dha>\\\&*ç+*ç/?==?/> {d}
+: |o|> ^ hoa^ echo "hello u" > hellou|>|hellou <hellou$()@()^`!!""¨£}{´[][{]|#¼½|¢¬]¢¢]}?dha\\\&*ç+*ç/?==?/> {d}
+ifeq (dd,dd)
+endif
+
+hello = hello
+&test-$(hello) = test.sh
+hi = hi
+test-$(hi) = test
+test2-&(test) = test2

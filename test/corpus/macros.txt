@@ -1,0 +1,21 @@
+============
+Macro invocation
+============
+
+: foreach *.c |> cc |> %B.o
+
+---
+
+(tupfile
+  (rule
+    (input_statement
+      (foreach)
+      (files
+        (filename)))
+    (arrow)
+    (command)
+    (arrow)
+    (files
+      (filename
+        (array_percent_flag))
+      (filename))))

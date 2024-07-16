@@ -13,30 +13,30 @@ TUP_TEST = hi
     (variable_statement
         (identifier
             (normal))
-        (operators))
+        (operators) (string))
     (variable_statement
         (identifier
             (normal))
-        (operators))
+        (operators) (string))
     (variable_statement
         (identifier
             (normal))
-        (operators))
+        (operators) (string))
     (variable_statement
         (identifier
             (tup_identifier))
-        (operators))
+        (operators) (string))
     (variable_statement
         (identifier
             (reference))
-        (operators))
+        (operators) (string))
         )
 
 ============
 Variable usage
 ============
-: |> $(hi) |>
-: |> @(hi) |>
+: |> $(hi_test) |>
+: |> @(hi_test) |>
 : |> &(hi) |>
 
 ---
@@ -75,3 +75,19 @@ Variable usage
             (normal)
             (array_percent_flag))
         (arrow)))
+
+============
+Use variables in variable names
+============
+
+hi-$(hi) = hi
+
+---
+
+(tupfile
+    (variable_statement
+        (identifier
+            (normal)
+            (variable_reference
+                (normal)))
+        (operators) (string)))

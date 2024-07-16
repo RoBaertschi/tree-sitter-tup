@@ -3,7 +3,8 @@
 #include "tree_sitter/array.h"
 
 enum TokenType {
-    STRING,
+    COMMAND,
+    STRING_TO_FILEEND,
     // ARROW,
     // FOREACH,
 };
@@ -38,38 +39,32 @@ bool tree_sitter_tup_external_scanner_scan(
 ) {
     Array(char) next_string = array_new();
 
-    // if (valid_symbols[FOREACH]) {
-
-    //     const char foreach[] = {'f', 'o', 'r', 'e', 'a', 'c', 'h'};
-
-    //     for (int i = 0; i < sizeof(foreach); i++) {
-    //         if (foreach[i] != lexer->lookahead) {
-    //             return false;
-    //         }
-    //         lexer->advance(lexer, false);
-    //     }
-    //     lexer->result_symbol = FOREACH;
-    //     return true;
-
-    //     // remove NUL
-    //     // if (next_string.size == sizeof(foreach)) {
-    //     //     if (memcmp(foreach, next_string.contents, sizeof(foreach))) {
-    //     //         array_clear(&next_string);
-    //     //         lexer->result_symbol = FOREACH;
-    //     //         lexer->mark_end(lexer);
-    //     //         return true;
-    //     //     }
-    //     // }
-    // }
-
-    if (valid_symbols[STRING]
+    if (valid_symbols[STRING_TO_FILEEND] && lexer->lookahead != '\n') {
+        lexer->advance(lexer, false);
+        while (lexer->lookahead != '\n' && !lexer->eof(lexer)) {
+            lexer->advance(lexer, false);
+        }
+        lexer->result_symbol = STRING_TO_FILEEND;
+        lexer->mark_end(lexer);
+        return true;
+    } else if (valid_symbols[COMMAND]
             && lexer->lookahead != '%'
             && lexer->lookahead != '^'
             && lexer->lookahead != '&'
             && lexer->lookahead != '$'
             && lexer->lookahead != '@'
     ) {
-        lexer->advance(lexer, false);
+        bool advanced = false;
+        if (lexer->lookahead == '|') {
+            lexer->advance(lexer, false);
+            advanced = true;
+            if (lexer->lookahead == '>') {
+                return false;
+            }
+        }
+        if (!advanced) {
+            lexer->advance(lexer, false);
+        }
 
         while (lexer->lookahead != '\n'
             && lexer->lookahead != '^'
@@ -77,7 +72,7 @@ bool tree_sitter_tup_external_scanner_scan(
             if (lexer->lookahead == '|') {
                 // dap|>
                 //   ^
-                lexer->result_symbol = STRING;
+                lexer->result_symbol = COMMAND;
                 lexer->mark_end(lexer);
                 lexer->advance(lexer, false);
                 // dap|>
@@ -92,15 +87,12 @@ bool tree_sitter_tup_external_scanner_scan(
                 || lexer->lookahead == '$'
                 || lexer->lookahead == '@'
             ) {
-                lexer->result_symbol = STRING;
+                lexer->result_symbol = COMMAND;
                 return true;
             }
 
             array_push(&next_string, lexer->lookahead);
             lexer->advance(lexer, false);
-            // if (end_marked) {
-            //     lexer->mark_end(lexer);
-            // }
         }
     }
     return false;
