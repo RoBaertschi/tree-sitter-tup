@@ -9,7 +9,7 @@
     "install": "node-gyp-build",
     "prebuildify": "prebuildify --napi --strip"
   },
-  "author": "",
+  "author": "RoBaertschi",
   "license": "MIT",
   "description": "",
   "dependencies": {
