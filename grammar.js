@@ -1,3 +1,9 @@
+/**
+ * @file tup
+ * @author RoBaertschi
+ * @license MIT
+ */
+
 /// <reference types="tree-sitter-cli/dsl" />"
 // @ts-check
 //
