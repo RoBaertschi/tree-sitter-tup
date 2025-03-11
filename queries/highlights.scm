@@ -1,37 +1,34 @@
 [
- (foreach)
- (ifeq)
- (ifneq)
- (ifdef)
- (ifndef)
+ "foreach"
+ "ifeq"
+ "ifneq"
+ "ifdef"
+ "ifndef"
  "else"
- (endif)
+ "endif"
  "include"
- (include_rules)
- "preload"
+ "include_rules"
  "run"
  "preload"
  "export"
  "import"
  "error"
+ ".gitignore"
 ] @keyword
 
 
-(string) @string
-(error (string) @emphasis.strong)
-(variable_statement (identifier (reference)) (operators) (string) @filename)
+(until_end) @string
+(comment) @comment
+(error message: (until_end) @emphasis.strong)
 (text) @string.special
 (flag) @tag
 [
- (percent_flag)
- (array_percent_flag)
+ (flag)
 ] @tag
-(tup_identifier) @variable.builtin
-(normal) @variable
-(reference) @variable.special
-(config_var) @variable
-(operators) @operator
-(arrow) @operator
+((identifier) @variable.builtin (#match? @variable.builtin "TUP_*"))
+(variable) @variable
+["=" ":=" "+="] @operator
+(arrow) @punctuation.delimiter
 [
  "$("
  "@("
@@ -39,14 +36,15 @@
  "("
  ")"
  "|"
- "<"
- ">"
- "{"
- "}"
 ] @punctuation.bracket
 
-(comment) @comment
-(filename) @string.special
-(group) @group
-(bin) @bin
+[
+ (exclude_file)
+ (normal_file)
+ ] @string.special.path
+[
+ (quoted_exclude_file)
+ (quoted_normal_file)
+ ] @string.special.path
+(bin) @string.special
 

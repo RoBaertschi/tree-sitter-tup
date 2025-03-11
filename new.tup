@@ -1,1 +1,9 @@
-: foreach src/*.c ^no_c_file.c | hello.h |> ^ TEXT^ hi |> "hi.o" "^hi.o"
+CFLAGS = hi
+CFLAGS += -c
+&var = new.tup
+
+ifeq ($CFLAGS,hi -c)
+error correct
+endif
+
+: foreach src/*.c ^no_c_file.c | hello.h |> ^j TEXT^ $(CFLAGS) hi |> "%o.o" "^%<group>hi.o" ../<submodgroup> {bin}

@@ -11,38 +11,146 @@
 const percent_flags = ["%", "e", "O", "d", "g"];
 const array_percent_flags = ["b", "B", "o", "f", "i"];
 
-const command_flags = ["%", "f"];
-const file_regex = /[\"^\s]+/;
-const exclude_file_regex = /\^[\"^\s]+/;
+const text_flags = ["b", "c", "j", "o", "s", "t"];
+
+const file_regex = /[^^\"\s%]/;
+const quoted_file_regex = /(?:(?:\\")|[^"\s%]|[ ])/;
+const quoted_exclude_file_regex = /(?:(?:\\")|[^"\s%]|[ ])/;
+
 module.exports = grammar({
   name: "tup",
   extras: _ => [/[\r\t\f\v ]/],
   rules: {
-    program: $ => repeat($.rule),
-    rule: $ => seq(":",
-      optional($._foreach),
-      field("inputs", repeat($._file)),
-      optional(field("order_only_inputs", seq("|", repeat1($._file)))),
-      $._arrow,
-      optional($.text),
-      optional($.command),
-      $._arrow,
-      field("outputs", repeat($._file)),
-      optional(field("extra_outputs", seq("|", repeat($._file)))),
+    program: $ => repeat($.statement),
+    statement: $ => choice(
+      $.rule,
+      $.var,
+      $.append,
+      $.ifeq,
+      $.ifdef,
+      $.error,
+      $.include,
+      $.include_rules,
+      $.run,
+      $.preload,
+      $.export,
+      $.import,
+      $.gitignore,
+      $.comment,
+      $.macro,
       "\n"
     ),
-    _foreach: _ => "foreach",
-    exclude_file: _ => exclude_file_regex,
-    quoted_exclude_file: _ => /"\^(?:(?:\\")|[^"\s]|[ ])+"/,
-    normal_file: _ => file_regex,
-    quoted_normal_file: _ => /"(?:(?:\\")|[^"\s]|[ ])+"/,
+    comment: $ => seq("#", $.until_end, "\n"),
+    gitignore: _ => seq(".gitignore", "\n"),
+    import: $ => seq("import", $.identifier, "=", field("default", $.until_end), "\n"),
+    export: $ => seq("export", $.identifier, "\n"),
+    preload: $ => seq("preload", repeat1(choice($.normal_file, $.quoted_normal_file)), "\n"),
+    run: $ => seq("run", field("command", $.until_end), "\n"),
+    include_rules: _ => seq("include_rules", "\n"),
+    include: $ => seq("include", field("file", $.until_end), "\n"),
+    error: $ => seq("error", field("message", $.until_end), "\n"),
+    ifeq: $ => seq(
+      choice("ifeq", "ifneq"),
+      "(",
+      repeat(injectionOr($, /[^\n,]/)),
+      ",",
+      repeat(injectionOr($, /[^\n,]/)),
+      ")",
+      "\n",
+      repeat($.statement),
+      optional(seq(
+        "else",
+        "\n",
+        repeat($.statement),
+      )),
+      seq("endif", "\n"),
+    ),
+    ifdef: $ => seq(
+      choice("ifdef", "ifndef"),
+      $.identifier,
+      "\n",
+      repeat($.statement),
+      optional(seq(
+        "else",
+        "\n",
+        repeat($.statement),
+      )),
+      seq("endif", "\n"),
+    ),
+    var: $ => seq($.identifier, choice("=", ":="), field("value", $.until_end), "\n"),
+    append: $ => seq($.identifier, "+=", field("value", $.until_end), "\n"),
+    until_end: _ => /[^\n]*/,
+    identifier: _ => token(/[^\s)]+/),
+    macro: $ => seq(
+      field("macro_name", /![^\s!]+/),
+      "=",
+      field("inputs", repeat($._file)),
+      optional(field("order_only_inputs", seq("|", repeat1($._file)))),
+      $.arrow,
+      optional($.text),
+      optional($.command),
+      $.arrow,
+      field("outputs", repeat($._file)),
+      "\n",
+    ),
+    rule: $ => seq(":",
+      optional("foreach"),
+      field("inputs", repeat($._file)),
+      optional(field("order_only_inputs", seq("|", repeat1($._file)))),
+      $.arrow,
+      optional($.text),
+      optional($.command),
+      $.arrow,
+      field("outputs", repeat($._file)),
+      optional(field("extra_outputs", seq("|", repeat($._file)))),
+      optional($.bin),
+      "\n"
+    ),
+    // HACK: IMPORTANT THE ORDER OF arrow AND *_file MATTER, KEEP THAT IN MIND
+    arrow: _ => /[||]>/,
+    bin: _ => /\{[^\s}]*}/,
+    exclude_file: $ => seq(
+      "^",
+      prec.right(
+        repeat1(
+          injectionOr($, file_regex,)
+        )
+      )
+    ),
+    quoted_exclude_file: $ => seq(
+      "\"^",
+      repeat1(
+        injectionOr($, quoted_exclude_file_regex,)
+      ),
+      "\""
+    ),
+    normal_file: $ => prec.right(
+      repeat1(
+        injectionOr($, file_regex)
+      )
+    ),
+    quoted_normal_file: $ => seq(
+      "\"",
+      repeat1(injectionOr($, quoted_file_regex)),
+      "\""
+    ),
     _file: $ => choice($.exclude_file, $.quoted_exclude_file, $.normal_file, $.quoted_normal_file),
-    _arrow: _ => "|>",
-    text: _ => seq("^ ", /[^\n\^\r]*/, "^"),
-    flag: _ => choice(...command_flags.map(v => "%" + v)),
-    command: $ => repeat1(choice($.flag, /[^\n\r]/)),
+    text: $ => seq("^", optional($.text_flags), " ", /[^\n\^\r]*/, "^"),
+    text_flags: _ => repeat1(choice(...text_flags)),
+    flag: _ => choice(...percent_flags.map(v => token.immediate("%" + v)), ...array_percent_flags.map(v => token.immediate(seq("%", /\d*/, v))), token.immediate(seq("%<", /[^\s>]*/, ">"))),
+    variable: $ => seq(choice(token("$("), token("&("), token("@(")), $.identifier, token(")")),
+    command: $ => repeat1(injectionOr($, /[^\n\r]/)),
   },
 })
+
+/**
+ * @param {GrammarSymbols<"flag" | "variable">} $
+ * @param {RuleOrLiteral} rule
+ * @returns {RuleOrLiteral}
+ */
+function injectionOr($, rule) {
+  return choice($.flag, $.variable, rule)
+}
 
 //module.exports = grammar({
 //  name: "tup",
