@@ -19,6 +19,7 @@
 
 (until_end) @string
 (comment) @comment
+(comment (until_end) @comment)
 (error message: (until_end) @emphasis.strong)
 (text) @string.special
 (flag) @tag
