@@ -43,8 +43,8 @@ enum ts_symbol_identifiers {
   sym_identifier = 25,
   aux_sym_macro_token1 = 26,
   anon_sym_PIPE = 27,
-  anon_sym_COLON = 28,
-  anon_sym_foreach = 29,
+  sym_foreach = 28,
+  anon_sym_COLON = 29,
   sym_arrow = 30,
   sym_bin = 31,
   anon_sym_CARET = 32,
@@ -141,8 +141,8 @@ static const char * const ts_symbol_names[] = {
   [sym_identifier] = "identifier",
   [aux_sym_macro_token1] = "macro_token1",
   [anon_sym_PIPE] = "|",
+  [sym_foreach] = "foreach",
   [anon_sym_COLON] = ":",
-  [anon_sym_foreach] = "foreach",
   [sym_arrow] = "arrow",
   [sym_bin] = "bin",
   [anon_sym_CARET] = "^",
@@ -239,8 +239,8 @@ static const TSSymbol ts_symbol_map[] = {
   [sym_identifier] = sym_identifier,
   [aux_sym_macro_token1] = aux_sym_macro_token1,
   [anon_sym_PIPE] = anon_sym_PIPE,
+  [sym_foreach] = sym_foreach,
   [anon_sym_COLON] = anon_sym_COLON,
-  [anon_sym_foreach] = anon_sym_foreach,
   [sym_arrow] = sym_arrow,
   [sym_bin] = sym_bin,
   [anon_sym_CARET] = anon_sym_CARET,
@@ -421,11 +421,11 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
     .visible = true,
     .named = false,
   },
-  [anon_sym_COLON] = {
+  [sym_foreach] = {
     .visible = true,
-    .named = false,
+    .named = true,
   },
-  [anon_sym_foreach] = {
+  [anon_sym_COLON] = {
     .visible = true,
     .named = false,
   },
@@ -3767,7 +3767,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
         '(', 56,
         ')', 65,
         ',', 64,
-        ':', 134,
+        ':', 135,
         '=', 47,
         '@', 143,
         '^', 139,
@@ -3791,7 +3791,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
         '!', 74,
         '#', 44,
         '.', 93,
-        ':', 135,
+        ':', 136,
         'e', 100,
         'i', 89,
         'p', 114,
@@ -3808,7 +3808,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
         '!', 74,
         '#', 44,
         '.', 93,
-        ':', 135,
+        ':', 136,
         'e', 104,
         'i', 89,
         'p', 114,
@@ -4188,7 +4188,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       if (lookahead == 'e') ADVANCE(32);
       END_STATE();
     case 35:
-      if (lookahead == 'h') ADVANCE(136);
+      if (lookahead == 'h') ADVANCE(134);
       END_STATE();
     case 36:
       if (lookahead == 'r') ADVANCE(34);
@@ -4215,7 +4215,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
         '#', 44,
         ')', 65,
         '.', 93,
-        ':', 135,
+        ':', 136,
         'e', 117,
         'i', 89,
         'p', 114,
@@ -4236,7 +4236,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
         '(', 56,
         ')', 65,
         ',', 64,
-        ':', 134,
+        ':', 135,
         '=', 47,
         '@', 143,
         '^', 139,
@@ -4940,17 +4940,17 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       if (lookahead == '>') ADVANCE(137);
       END_STATE();
     case 134:
-      ACCEPT_TOKEN(anon_sym_COLON);
+      ACCEPT_TOKEN(sym_foreach);
       END_STATE();
     case 135:
+      ACCEPT_TOKEN(anon_sym_COLON);
+      END_STATE();
+    case 136:
       ACCEPT_TOKEN(anon_sym_COLON);
       if (lookahead != 0 &&
           (lookahead < '\t' || '\r' < lookahead) &&
           lookahead != ' ' &&
           lookahead != ')') ADVANCE(130);
-      END_STATE();
-    case 136:
-      ACCEPT_TOKEN(anon_sym_foreach);
       END_STATE();
     case 137:
       ACCEPT_TOKEN(sym_arrow);
@@ -7491,8 +7491,8 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_COMMA] = ACTIONS(1),
     [anon_sym_RPAREN] = ACTIONS(1),
     [anon_sym_PIPE] = ACTIONS(1),
+    [sym_foreach] = ACTIONS(1),
     [anon_sym_COLON] = ACTIONS(1),
-    [anon_sym_foreach] = ACTIONS(1),
     [sym_arrow] = ACTIONS(1),
     [sym_bin] = ACTIONS(1),
     [anon_sym_CARET] = ACTIONS(1),
@@ -12204,7 +12204,7 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(518), 1,
       anon_sym_PIPE,
     ACTIONS(520), 1,
-      anon_sym_foreach,
+      sym_foreach,
     ACTIONS(522), 1,
       sym_arrow,
     ACTIONS(524), 1,
@@ -13262,7 +13262,7 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(680), 1,
       anon_sym_PIPE,
     ACTIONS(682), 1,
-      anon_sym_foreach,
+      sym_foreach,
     ACTIONS(684), 1,
       sym_arrow,
     ACTIONS(534), 3,
@@ -16370,7 +16370,7 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(1124), 1,
       anon_sym_PIPE,
     ACTIONS(1126), 1,
-      anon_sym_foreach,
+      sym_foreach,
     ACTIONS(1128), 1,
       sym_arrow,
     ACTIONS(534), 3,

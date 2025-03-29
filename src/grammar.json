@@ -627,6 +627,10 @@
         }
       ]
     },
+    "foreach": {
+      "type": "STRING",
+      "value": "foreach"
+    },
     "rule": {
       "type": "SEQ",
       "members": [
@@ -638,8 +642,8 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "STRING",
-              "value": "foreach"
+              "type": "SYMBOL",
+              "name": "foreach"
             },
             {
               "type": "BLANK"

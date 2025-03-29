@@ -511,6 +511,10 @@
           "named": true
         },
         {
+          "type": "foreach",
+          "named": true
+        },
+        {
           "type": "text",
           "named": true
         }
@@ -787,7 +791,7 @@
   },
   {
     "type": "foreach",
-    "named": false
+    "named": true
   },
   {
     "type": "identifier",

@@ -1,5 +1,5 @@
 [
- "foreach"
+ (foreach)
  "ifeq"
  "ifneq"
  "ifdef"
